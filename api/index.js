@@ -2,8 +2,9 @@
 // https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const app = express()
-const port = 3000
+const port = 4000
 
 const ColorController = require('./controllers/colors');
 const CategoryController = require('./controllers/categories');
@@ -14,9 +15,13 @@ app.use(
     bodyParser.urlencoded({
         extended: true,
     })
-)
+    )
+app.use(cors())
 
 // colors
+app.get('/', (req, res) => {
+    res.send("Hola!");
+})
 app.get('/colors', ColorController.getColors)
 app.get('/color/:id', ColorController.getColor)
 app.post('/colors', ColorController.createColor)

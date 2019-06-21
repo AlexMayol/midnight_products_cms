@@ -4,6 +4,7 @@
   "description": "RESTful API in Express.js and PostgreSQL with Vue.JS front-end",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "nodemon": "^1.19.1",

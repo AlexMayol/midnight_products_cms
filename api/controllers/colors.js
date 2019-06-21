@@ -8,7 +8,7 @@ const getColors = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).json({ info: results.rows })
+        response.status(200).json({ results: results.rows })
     })
 }
 
@@ -23,27 +23,27 @@ const getColor = (request, response) => {
     })
 }
 
-const createColor = (request, response) => {    
+const createColor = (request, response) => {
     console.log(request.body)
-    const { code } = request.body
+    const { code, label } = request.body.params
 
-    client.query('INSERT INTO colors (code) VALUES ($1)', [code], (error, results) => {
+    client.query('INSERT INTO colors (code, label) VALUES ($1, $2) RETURNING id', [code, label], (error, results) => {
         if (error) {
             throw error
         }
-        
+
         console.log(results)
-        response.status(201).send({ success: true, message: `Color added with ID: ${results.insertId}` })
+        response.status(201).send({ success: true, id: results.rows[0].id, message: `Color added with ID: ${results.rows[0].id}` })
     })
 }
 
 const updateColor = (request, response) => {
-    const id = parseInt(request.params.id)    
-    const { code } = request.body
-
+    const id = parseInt(request.params.id)
+    const { code, label } = request.body
+    
     client.query(
-        'UPDATE colors SET code = $1  WHERE id = $2',
-        [code, id],
+        'UPDATE colors SET code = $1, label = $2  WHERE id = $3',
+        [code, label, id],
         (error, results) => {
             if (error) {
                 throw error
@@ -54,6 +54,7 @@ const updateColor = (request, response) => {
 }
 
 const deleteColor = (request, response) => {
+    console.log(request.params)
     const id = parseInt(request.params.id)
     client.query('DELETE FROM colors WHERE id = $1', [id], (error, results) => {
         if (error) {

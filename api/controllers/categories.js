@@ -24,9 +24,9 @@ const getCategory = (request, response) => {
 
 const createCategory = (request, response) => {    
     console.log(request.body)
-    const { name } = request.body
+    const { name, description } = request.body
 
-    client.query('INSERT INTO categories (name) VALUES ($1)', [name], (error, results) => {
+    client.query('INSERT INTO categories (name, description) VALUES ($1, $2)', [name, description], (error, results) => {
         if (error) {
             throw error
         }
@@ -38,11 +38,11 @@ const createCategory = (request, response) => {
 
 const updateCategory = (request, response) => {
     const id = parseInt(request.params.id)    
-    const { name } = request.body
+    const { name, description } = request.body
 
     client.query(
-        'UPDATE categories SET name = $1  WHERE id = $2',
-        [name, id],
+        'UPDATE categories SET name = $1, description = $2  WHERE id = $3',
+        [name, description, id],
         (error, results) => {
             if (error) {
                 throw error
