@@ -8,7 +8,7 @@ const getCategories = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).json({ info: results.rows })
+        response.status(200).json({ results: results.rows })
     })
 }
 
@@ -18,31 +18,31 @@ const getCategory = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).json({ info: results.rows })
+        response.status(200).json({ results: results.rows })
     })
 }
 
 const createCategory = (request, response) => {    
     console.log(request.body)
-    const { name, description } = request.body
+    const { name, description, image } = request.body.params
 
-    client.query('INSERT INTO categories (name, description) VALUES ($1, $2)', [name, description], (error, results) => {
+    client.query('INSERT INTO categories (name, description, image) VALUES ($1, $2, $3) RETURNING id', [name, description, image], (error, results) => {
         if (error) {
             throw error
         }
         
         console.log(results)
-        response.status(201).send({ success: true, message: `Category added with ID: ${results.insertId}` })
+        response.status(201).send({ success: true, id: results.rows[0].id, message: `Category added with ID: ${results.rows[0].id}` })
     })
 }
 
 const updateCategory = (request, response) => {
     const id = parseInt(request.params.id)    
-    const { name, description } = request.body
+    const { name, description, image } = request.body
 
     client.query(
-        'UPDATE categories SET name = $1, description = $2  WHERE id = $3',
-        [name, description, id],
+        'UPDATE categories SET name = $1, description = $2, image = $3  WHERE id = $4',
+        [name, description, image, id],
         (error, results) => {
             if (error) {
                 throw error

@@ -19,7 +19,7 @@ const getColor = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).json({ info: results.rows })
+        response.status(200).json({ results: results.rows })
     })
 }
 
@@ -54,7 +54,6 @@ const updateColor = (request, response) => {
 }
 
 const deleteColor = (request, response) => {
-    console.log(request.params)
     const id = parseInt(request.params.id)
     client.query('DELETE FROM colors WHERE id = $1', [id], (error, results) => {
         if (error) {
@@ -63,6 +62,7 @@ const deleteColor = (request, response) => {
         response.status(200).send({ success: true, message: `Color deleted with ID: ${id}` })
     })
 }
+
 
 const deleteColors = (request, response) => {
     client.query('DELETE FROM colors', (error, results) => {

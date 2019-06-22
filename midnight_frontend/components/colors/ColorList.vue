@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto my-8 px-4">
-    <h2>{{colorMessage}}</h2>
+    <h2 class="bg-blue-200 my-2 text-center text-xl rounded-lg p-2 font-bold">{{colorMessage}}</h2>
     <section class="color-list">
       <color
         v-for="color of colors"
@@ -10,22 +10,36 @@
         @update="updateColor"
       ></color>
     </section>
-
-    <form @submit.prevent="createColor">
-      <fieldset>
-        <legend>Add a new color:</legend>
-        <label>
-          Name of the color
-          <input v-model="newLabel" type="text" maxlength="25">
-        </label>
-
-        <label>
-          Code of the color
-          <input v-model="newCode" type="color">
-        </label>
-      </fieldset>
-      <input type="submit" value="Add">
-    </form>
+    <p class="bg-blue-200 my-2 text-center rounded-lg p-2 font-bold">✔️ Add a new color</p>
+    <div class="my-2 flex flex-wrap">
+      <div class="px-2 md:w-1/2">
+        <form class="p-2 bg-white rounded-lg" @submit.prevent="createColor">
+          <label class="md:w-1/2 px-2 text-gray-700 text-sm font-bold mb-2">
+            Name
+            <input
+              required
+              v-model="newColor.label"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              placeholder="Name"
+              maxlength="25"
+            >
+          </label>
+          <label class="md:w-1/2 px-2 text-gray-700 text-sm font-bold mb-2">
+            Color
+            <input required v-model="newColor.code" class="w-full h-6 my-2" type="color">
+          </label>
+          <input
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+            type="submit"
+            value="Add"
+          >
+        </form>
+      </div>
+    <div class="md:w-1/2">
+      <color :color-data="newColor" :editable="false"></color>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -41,13 +55,14 @@ export default {
   data() {
     return {
       colors: [],
-      newLabel: null,
-      newCode: '#ffffff'
+      newColor: new ColorModel()
     }
   },
-  computed:{
-    colorMessage: function(){
-      return (this.colors.length > 0) ? 'These are the colors available' : 'There are not colors yet! Start creating some 👇'
+  computed: {
+    colorMessage: function() {
+      return this.colors.length > 0
+        ? 'These are the colors available'
+        : 'There are no colors yet! Start creating some 👇'
     }
   },
   mounted() {
@@ -62,14 +77,14 @@ export default {
     },
     async createColor() {
       let params = {
-        code: this.newCode,
-        label: this.newLabel
+        code: this.newColor.code,
+        label: this.newColor.label
       }
       let res = await axios.post('http://localhost:4000/colors', { params })
       console.log(res)
       if (res.data.success) {
-        params.id = res.data.id
-        this.colors.push(new ColorModel(params))
+        this.colors.push(new ColorModel({ ...params, id: res.data.id }))
+        this.newColor = new ColorModel()
       }
     },
     async updateColor(color) {
@@ -96,6 +111,7 @@ export default {
 <style>
 .color-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(5rem, 12rem));
+  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 20rem));
 }
 </style>
