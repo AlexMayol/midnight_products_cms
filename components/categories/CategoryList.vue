@@ -81,7 +81,7 @@ export default {
   computed: {
     categoryMessage: function() {
       return this.categories.length > 0
-        ? 'These are the categories available'
+        ? 'These are the available categories'
         : 'There are no categories yet! Start creating some 👇'
     }
   },

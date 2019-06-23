@@ -62,7 +62,7 @@ export default {
   computed: {
     colorMessage: function() {
       return this.colors.length > 0
-        ? 'These are the colors available'
+        ? 'These are the available colors'
         : 'There are no colors yet! Start creating some 👇'
     }
   },
