@@ -14,6 +14,7 @@ It's hosted on Heroku.
 
 
 ## Frontend
+[Here is the website] (https://musing-johnson-5ae84e.netlify.com)
 You can find the code for the frontend part in this repository. You can see a classic Nuxt.js folder structure since it was my framework of choice. 
 The app has 3 main routes:
 1. Colors: here you can create a color. Give it a name (label) and pick a color with the native HTML5 color input. In a product, you'll see a preview of the color and the label as the title.
@@ -22,7 +23,7 @@ The app has 3 main routes:
 
 All of these entities can be created, modified and deleted. Each one has a form inside to update it and see the change in real time.
  
-This frontend is hosted on GitHub Pages.
+This frontend is hosted on Heroku.
 
 ## FAQ
 1. Does your API have an auth system?

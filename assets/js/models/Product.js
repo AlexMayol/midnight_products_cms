@@ -1,6 +1,6 @@
 export const ProductModel = class ProductModel {
   constructor(data) {
-    if (!data){
+    if (!data) {
       return {
         name: null,
         descriptions: {
@@ -17,17 +17,16 @@ export const ProductModel = class ProductModel {
         colors: []
       }
     }
-    console.log(data.colors)
     this.id = data.id;
-    this.name = data.name;
+    this.name = data.name || null;
     this.descriptions = {
-      en: data.en_description,
-      es: data.es_description,
-      de: data.de_description
+      en: data.en_description || null,
+      es: data.es_description || null,
+      de: data.de_description || null
     };
-    this.price = data.price;
-    this.image = data.image;
-    this.category = data.category;
-    this.colors = (data.colors) ? data.colors : []
+    this.price = data.price || null;
+    this.image = data.image || null;
+    this.category = data.category || null;
+    this.colors = data.colors || []
   }
 }
