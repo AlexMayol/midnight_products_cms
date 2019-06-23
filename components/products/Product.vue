@@ -28,8 +28,8 @@
         {{product.price || 'No price'}}
         <span v-if="product.price">€</span>
       </p>
-      <p class="text-center font-bold">Category: {{product.category.name}}</p>
-
+      <p v-if="product.category" class="text-center font-bold">Category: {{product.category.name}}</p>
+      <p v-else>No category available</p>
       <div v-if="product.colors && product.colors.length > 0">
         <p class="p-2">Available in these awesome colors:</p>
         <color
