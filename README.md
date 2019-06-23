@@ -8,7 +8,7 @@ The code for the API is [in this other repository.](https://github.com/AlexMayol
 I chose PostgreSQL in order to learn how to use a SQL language in Node, since [I previously developed with MongoDB and Node](https://github.com/AlexMayol/Telegram-Bots).
 I decides to use [ElephantSQL, a PostgreSQL SaaS](https://www.elephantsql.com/) in order to simplify both development and deployment phases. A backup of the database can be found on this repository. [node-postgres](https://node-postgres.com/) was used to ease the connection between PostgreSQL and node.js.
 
-[https://arcane-sea-21496.herokuapp.com/api-docs/](The documentation for this API can be found in this url: https://arcane-sea-21496.herokuapp.com/api-docs/)
+[The documentation for this API can be found in this url: https://arcane-sea-21496.herokuapp.com/api-docs/](https://arcane-sea-21496.herokuapp.com/api-docs/)
 
 It's hosted on Heroku.
 
