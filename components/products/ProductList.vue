@@ -6,6 +6,8 @@
         v-for="product of products"
         :key="product.id"
         :product-data="product"
+        :color-data="colors"
+        :category-data="categories"
         @delete="deleteProduct"
         @update="updateProduct"
       ></product>
@@ -106,12 +108,7 @@
                 :title="color.label"
                 :style="{ '--bg-color': color.code}"
               ></div>
-              <input
-                v-model="newProduct.colors"
-                type="checkbox"
-                name="color_check"
-                :value="color.id"
-              >
+              <input v-model="newProduct.colors" type="checkbox" name="color_check" :value="color">
             </label>
           </div>
           <input
@@ -150,7 +147,7 @@ export default {
   computed: {
     productsMessage: function() {
       return this.products.length > 0
-        ? 'These are the products available'
+        ? 'These are the available products'
         : 'There are no products yet! Start creating some 👇'
     }
   },
@@ -165,7 +162,8 @@ export default {
       for (let product of res.data.results) {
         this.products.push(new ProductModel(product))
       }
-       this.assignCategories()
+      this.assignCategories()
+      this.assignColors()
     },
     async createProduct() {
       let params = {
@@ -176,10 +174,9 @@ export default {
         category: this.newProduct.category.id,
         colors: this.newProduct.colors
       }
-      console.log('llego')
 
       let res = await axios.post('http://localhost:4000/products', { params })
-      console.log(res)
+
       if (res.data.success) {
         params.category = {
           id: this.newProduct.category.id,
@@ -192,18 +189,20 @@ export default {
     async updateProduct(product) {
       let params = {
         name: product.name,
-        description: product.description,
-        image: product.image
+        price: product.price,
+        image: product.image,
+        category: product.category.id,
+        descriptions: product.descriptions,
+        image: product.image,
+        colors: product.colors
       }
-      let res = await axios.put(
-        `http://localhost:4000/category/${product.id}`,
-        { params }
-      )
+      let res = await axios.put(`http://localhost:4000/product/${product.id}`, {
+        params
+      })
       console.log(res)
     },
     async deleteProduct(id) {
       let res = await axios.delete(`http://localhost:4000/product/${id}`)
-      console.log(res)
 
       for (let i = 0; i < this.products.length; i++)
         if (this.products[i].id === id) this.products.splice(i, 1)
@@ -221,17 +220,19 @@ export default {
       }
     },
     assignCategories() {
-     for(let product of this.products){
-        console.log(product)
+      for (let product of this.products) {
         for (let category of this.categories) {
           if (product.category == category.id) product.category = category
         }
       }
     },
     assignColors() {
-     for(let product of this.products){
+      for (let product of this.products) {
         for (let color of this.colors) {
-          if (product.colors.includes(color))console.log("aa")
+          if (product.colors && product.colors.includes(color.id)) {
+            let i = product.colors.indexOf(color.id)
+            product.colors[i] = color
+          }
         }
       }
     }
@@ -240,10 +241,16 @@ export default {
 </script>
 
 <style>
+
 .product-list {
   display: grid;
   grid-gap: 0.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 30rem));
+}
+@media (max-width: 400px) {
+  .product-list {
+    display: block;
+  }
 }
 .color-picker {
   background-color: var(--bg-color);

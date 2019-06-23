@@ -131,7 +131,8 @@ export default {
 <style>
 .category-list {
   display: grid;
-  grid-gap: .5rem;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 1rem;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 30rem));
 }
 </style>

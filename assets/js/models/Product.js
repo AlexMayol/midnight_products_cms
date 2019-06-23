@@ -28,6 +28,6 @@ export const ProductModel = class ProductModel {
     this.price = data.price;
     this.image = data.image;
     this.category = data.category;
-    this.colors = data.colors
+    this.colors = (data.colors) ? data.colors : []
   }
 }

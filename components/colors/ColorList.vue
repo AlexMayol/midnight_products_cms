@@ -36,9 +36,9 @@
           >
         </form>
       </div>
-    <div class="md:w-1/2">
-      <color :color-data="newColor" :editable="false"></color>
-    </div>
+      <div class="md:w-1/2">
+        <color :color-data="newColor" :editable="false"></color>
+      </div>
     </div>
   </div>
 </template>
@@ -111,7 +111,8 @@ export default {
 <style>
 .color-list {
   display: grid;
-  grid-gap: .5rem;
+  grid-gap: 1rem;
+  justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 20rem));
 }
 </style>
