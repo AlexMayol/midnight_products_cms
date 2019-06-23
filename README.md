@@ -11,7 +11,8 @@ I decides to use [ElephantSQL, a PostgreSQL SaaS](https://www.elephantsql.com/) 
 
 ## Frontend
 You can find the code for the frontend part in this repository. You can see a classic Nuxt.js folder structure since it was my framework of choice. 
-The app has 3 main routes
+The app has 3 main routes:
+1. Colors: here you can create a color. Give it a name (label) and pick a color with the native HTML5 color input. In a product, you'll see a preview of the color and the label as the title.
 
 
 ## FAQ
