@@ -121,7 +121,7 @@ export default {
       console.log(res)
     },
     async deleteCategory(id) {
-      let res = await axios.delete(`${this.urlAPI}/category/${id}`)
+      let res = await axios.delete(`${this.urlAPI}category/${id}`)
       console.log(res)
 
       for (let i = 0; i < this.categories.length; i++)

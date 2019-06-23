@@ -1,33 +1,21 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">
-        frontend
-      </h1>
-      <h2 class="subtitle">
-        Frontend for my awesome CMS
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
-      </div>
+      <h1 class="title sm:text-sm">Midnight CMS</h1>
+      <p class="subtitle">Manage products of any kind, giving them descriptions in three languages, a cool preview image, a category and as many colors as you want!</p>
+	  <p>Get started now!✅</p>
+	  <ul class="inline-flex flex-col list-disc">
+		  <li><a href="/categories" target="_blank" rel="noopener">First, create a category (anything you like)! 🦈</a></li>
+		  <li><a href="/colors" target="_blank" rel="noopener">Then, create ♾️ colors ♾️ for the product</a></li>
+		  <li><a href="/products" target="_blank" rel="noopener">You are now ready to create a new product! 💯</a></li>
+	  </ul>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  components: {
-
-  }
+  components: {}
 }
 </script>
 
