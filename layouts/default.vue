@@ -2,9 +2,9 @@
   <div class="site">
     <header class="bg-blue-400 text-white">
       <nav class="flex justify-around py-4">
-        <a href="colors" class="hover:text-black">Colors</a>
-        <a href="products" class="hover:text-black">Products</a>
-        <a href="categories" class="hover:text-black">Categories</a>
+        <a href="/colors" class="hover:text-black">Colors</a>
+        <a href="/products" class="hover:text-black">Products</a>
+        <a href="/categories" class="hover:text-black">Categories</a>
       </nav>
     </header>
     <main class="flex-1">
