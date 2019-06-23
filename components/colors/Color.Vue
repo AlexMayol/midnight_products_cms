@@ -5,7 +5,7 @@
     >
       <div
         :style="(color.code) ? 'background-color:' + color.code : 'red'"
-        class="w-full h-32 rounded-t-lg border-b-2"
+        class="w-full h-24 rounded-t-lg border-b-2"
       ></div>
       <span
         class="border-solid border-2 rounded-lg text-center -mt-6 mx-2 p-2 bg-gray-400"

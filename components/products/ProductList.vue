@@ -131,8 +131,10 @@ import { ProductModel } from '~/assets/js/models/Product'
 import { CategoryModel } from '~/assets/js/models/Category'
 import { ColorModel } from '~/assets/js/models/Color'
 import Product from '~/components/products/Product'
+import {BaseMixin} from '~/assets/js/mixins/base'
 
 export default {
+  mixins:[BaseMixin],
   components: {
     Product
   },
@@ -158,7 +160,7 @@ export default {
   },
   methods: {
     async getProducts() {
-      let res = await axios.get('http://localhost:4000/products')
+      let res = await axios.get(`${this.urlAPI}products`)
       for (let product of res.data.results) {
         this.products.push(new ProductModel(product))
       }
@@ -175,7 +177,7 @@ export default {
         colors: this.newProduct.colors
       }
 
-      let res = await axios.post('http://localhost:4000/products', { params })
+      let res = await axios.post(`${this.urlAPI}products`, { params })
 
       if (res.data.success) {
         params.category = {
@@ -196,25 +198,25 @@ export default {
         image: product.image,
         colors: product.colors
       }
-      let res = await axios.put(`http://localhost:4000/product/${product.id}`, {
+      let res = await axios.put(`${this.urlAPI}product/${product.id}`, {
         params
       })
       console.log(res)
     },
     async deleteProduct(id) {
-      let res = await axios.delete(`http://localhost:4000/product/${id}`)
+      let res = await axios.delete(`${this.urlAPI}product/${id}`)
 
       for (let i = 0; i < this.products.length; i++)
         if (this.products[i].id === id) this.products.splice(i, 1)
     },
     async getCategories() {
-      let res = await axios.get('http://localhost:4000/categories')
+      let res = await axios.get(`${this.urlAPI}categories`)
       for (let category of res.data.results) {
         this.categories.push(new CategoryModel(category).forProduct())
       }
     },
     async getColors() {
-      let res = await axios.get('http://localhost:4000/colors')
+      let res = await axios.get(`${this.urlAPI}colors`)
       for (let color of res.data.results) {
         this.colors.push(new ColorModel(color))
       }

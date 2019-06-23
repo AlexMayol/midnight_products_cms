@@ -65,8 +65,10 @@
 import axios from 'axios'
 import { CategoryModel } from '~/assets/js/models/Category'
 import Category from '~/components/categories/Category'
+import {BaseMixin} from '~/assets/js/mixins/base'
 
 export default {
+  mixins:[BaseMixin],
   components: {
     Category
   },
@@ -88,7 +90,7 @@ export default {
   },
   methods: {
     async getCategories() {
-      let res = await axios.get('http://localhost:4000/categories')
+      let res = await axios.get(`${this.urlAPI}categories`)
       for (let category of res.data.results) {
         this.categories.push(new CategoryModel(category))
       }
@@ -99,7 +101,7 @@ export default {
         description: this.newCategory.description,
         image: this.newCategory.image
       }
-      let res = await axios.post('http://localhost:4000/categories', { params })
+      let res = await axios.post(`${this.urlAPI}categories`, { params })
 
       if (res.data.success) {
         this.categories.push(new CategoryModel({ ...params, id: res.data.id }))
@@ -113,13 +115,13 @@ export default {
         image: category.image
       }
       let res = await axios.put(
-        `http://localhost:4000/category/${category.id}`,
+        `${this.urlAPI}category/${category.id}`,
         params
       )
       console.log(res)
     },
     async deleteCategory(id) {
-      let res = await axios.delete(`http://localhost:4000/category/${id}`)
+      let res = await axios.delete(`${this.urlAPI}/category/${id}`)
       console.log(res)
 
       for (let i = 0; i < this.categories.length; i++)
@@ -133,6 +135,6 @@ export default {
   display: grid;
   grid-gap: 1rem;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 30rem));
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 20rem));
 }
 </style>

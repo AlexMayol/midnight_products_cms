@@ -31,7 +31,7 @@
       <p class="text-center font-bold">Category: {{product.category.name}}</p>
 
       <div v-if="product.colors && product.colors.length > 0">
-        <p>Available in these awesome colors:</p>
+        <p class="p-2">Available in these awesome colors:</p>
         <color
           v-for="color of product.colors"
           :color-data="color"

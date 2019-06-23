@@ -47,8 +47,9 @@
 import axios from 'axios'
 import { ColorModel } from '~/assets/js/models/Color'
 import Color from '~/components/colors/Color'
-
+import {BaseMixin} from '~/assets/js/mixins/base'
 export default {
+  mixins:[BaseMixin],
   components: {
     Color
   },
@@ -70,7 +71,7 @@ export default {
   },
   methods: {
     async getColors() {
-      let res = await axios.get('http://localhost:4000/colors')
+      let res = await axios.get(`${this.urlAPI}colors`)
       for (let color of res.data.results) {
         this.colors.push(new ColorModel(color))
       }
@@ -80,7 +81,7 @@ export default {
         code: this.newColor.code,
         label: this.newColor.label
       }
-      let res = await axios.post('http://localhost:4000/colors', { params })
+      let res = await axios.post(`${this.urlAPI}colors`, { params })
       console.log(res)
       if (res.data.success) {
         this.colors.push(new ColorModel({ ...params, id: res.data.id }))
@@ -93,13 +94,13 @@ export default {
         label: color.label
       }
       let res = await axios.put(
-        `http://localhost:4000/color/${color.id}`,
+       `${this.urlAPI}color/${color.id}`,
         params
       )
       console.log(res)
     },
     async deleteColor(id) {
-      let res = await axios.delete(`http://localhost:4000/color/${id}`)
+      let res = await axios.delete(`${this.urlAPI}color/${id}`)
       console.log(res)
 
       for (let i = 0; i < this.colors.length; i++)
