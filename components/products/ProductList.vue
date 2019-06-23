@@ -247,7 +247,8 @@ export default {
 .product-list {
   display: grid;
   grid-gap: 0.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 30rem));
+ grid-template-columns: repeat(auto-fit,minmax(15rem,25rem));
+    justify-content: center;
 }
 @media (max-width: 400px) {
   .product-list {
